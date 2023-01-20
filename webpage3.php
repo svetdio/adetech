@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (isset($_SESSION['login_details'])) {
   $isBranchHead = $_SESSION['login_details']['isBranchHead'];
