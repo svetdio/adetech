@@ -1,0 +1,205 @@
+.bg {
+   background-image: linear-gradient(to right, rgb(97, 98, 99), rgb(85, 134, 156));
+   background-size: auto;
+}
+
+.space {
+   width: 20px;
+   height: auto;
+   display: inline-block;
+}
+
+.home {
+   width: 30px;
+   height: 30px;
+}
+
+.anchors {
+   margin-left: 1110px;
+   margin-top: -60px;
+}
+
+p {
+   text-align: left;
+   font-size: 50px;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: bold;
+   margin-bottom: -20px;
+   margin-top: 20px;
+   margin-left: 25px;
+   color: black;
+
+}
+
+.div1 {
+   margin: 1%;
+   padding: 1%;
+   width: 27%;
+   left: 1%;
+   height: 100%;
+   background-color: rgb(70, 165, 165);
+   position: absolute;
+   border: 5px solid rgb(59, 56, 56);
+   border-radius: 3%;
+   justify-content: center;
+   float: left;
+}
+
+.div2 {
+   margin: 1%;
+   padding: 1%;
+   width: 65%;
+   left: 31%;
+   height: 100%;
+   background-color: rgb(167, 202, 202);
+   position: absolute;
+   border: 5px solid rgb(59, 56, 56);
+   border-radius: 3%;
+}
+
+.ebi {
+   text-align: center;
+   text-underline-offset: 0.4em;
+}
+
+.ebi2 {
+   text-align: left;
+   text-underline-offset: 0.4em;
+}
+
+.ebitxt {
+   font-family: arial;
+   font-size: 17px;
+   text-decoration: underline;
+   text-decoration-color: #28ACEA;
+}
+
+.forimg {
+   width: 50%;
+   height: 20%;
+   left: 25%;
+   position: absolute;
+}
+
+.image-preview {
+   width: 219px;
+   min-height: 182px;
+   border: 3px solid rgb(32, 30, 30);
+   margin-top: 0px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-weight: bold;
+   color: #cccccc;
+   font-family: 'Calibri', sans-serif;
+   font-size: 20px;
+}
+
+.image-preview__image {
+   display: none;
+   width: 100%;
+}
+
+.fortable {
+   justify-content: center;
+   position: absolute;
+   background-color: rgb(70, 165, 165);
+   width: 93%;
+   height: 53%;
+   bottom: 3%;
+}
+
+.button1 {
+   background-color: #008CBA;
+   border: 2px solid black;
+   color: white;
+   padding: 5px 20px;
+   text-align: center;
+   display: inline-block;
+   font-size: 15px;
+   margin: 1px 2px;
+   cursor: pointer;
+}
+
+.button2 {
+   background-color: #008CBA;
+   border: 2px solid black;
+   color: white;
+   padding: 5px 20px;
+   text-align: center;
+   display: inline-block;
+   font-size: 15px;
+   margin: 1px 2px;
+   cursor: pointer;
+}
+
+.button3 {
+   background-color: #F4D03F;
+   border: 2px solid black;
+   color: white;
+   padding: 5px 20px;
+   text-align: center;
+   display: inline-block;
+   font-size: 15px;
+   margin: 1px 2px;
+   cursor: pointer;
+}
+
+.button4 {
+   background-color: #85C1E9;
+   border: 2px solid black;
+   color: white;
+   padding: 5px 20px;
+   text-align: center;
+   display: inline-block;
+   font-size: 15px;
+   margin: 1px 2px;
+   cursor: pointer;
+}
+
+.button5 {
+   background-color: #4084b1;
+   border: 2px solid black;
+   color: white;
+   padding: 5px 20px;
+   text-align: center;
+   display: inline-block;
+   font-size: 15px;
+   margin: 1px 2px;
+   cursor: pointer;
+}
+
+.button6 {
+   background-color: #17202A;
+   border: 2px solid black;
+   color: white;
+   padding: 5px 20px;
+   text-align: center;
+   display: inline-block;
+   font-size: 15px;
+   margin: 1px 2px;
+   cursor: pointer;
+}
+
+.button8 {
+   padding: 10px 15px;
+   text-align: center;
+   cursor: pointer;
+   background-color: transparent;
+   border: none;
+   border-radius: 20px;
+}
+
+.button9 {
+   padding: 10px 15px;
+   text-align: center;
+   cursor: pointer;
+   background-color: #1690a5;
+   border: none;
+   border-radius: 20px;
+   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.button8:hover {
+   background-color: #426e79
+}
