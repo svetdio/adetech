@@ -6,7 +6,6 @@ $(function () {
 
     $('#login').on("click", function (e) {
         e.preventDefault();
-
         let uname = $('#uname').val();
         let pass = $('#pass').val();
 
