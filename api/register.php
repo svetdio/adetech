@@ -7,13 +7,14 @@ $fname = $_POST['fname'];
 $lname = $_POST['lname'];
 $uname = $_POST['uname'];
 $pass = $_POST['pass'];
+$acct_type = $_POST['acct_type'];
 
 $query = "
     SELECT 
         * 
     FROM employee 
     WHERE
-    uname = '$uname'
+    emp_username = '$uname'
 ";
 
 $stmt = $db->query($query);
@@ -24,14 +25,14 @@ if (is_array($employee) && count($employee) > 0) {
 } else {
     $query2 = "
     INSERT INTO
-        employee (fname, lname, uname, pass)
+        employee (emp_fname, emp_lname, emp_username, emp_password, app_role)
     VALUES
-        (?, ?, ?, ?);
+        (?, ?, ?, ?, ?);
     ";
 
     $stmt2 = $db->prepare($query2);
 
-    $stmt2->bind_param("ssss", $fname, $lname, $uname, $pass);
+    $stmt2->bind_param("ssssi", $fname, $lname, $uname, $pass, $acct_type);
 
     if ($stmt2->execute()) {
         echo json_encode(array("result" => "success"));

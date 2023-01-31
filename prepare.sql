@@ -27,12 +27,12 @@ USE `adetech`;
 --
 
 CREATE TABLE IF NOT EXISTS `employee` (
-  `emp_id` int(11) NOT NULL,
+  `emp_id` int(11) NOT NULL AUTO_INCREMENT,
   `emp_fname` varchar(100) DEFAULT NULL,
   `emp_lname` varchar(100) DEFAULT NULL,
   `emp_username` varchar(100) DEFAULT NULL,
   `emp_password` varchar(100) DEFAULT NULL,
-  `isBranchHead` smallint(6) DEFAULT NULL,
+  `app_role` smallint(6) DEFAULT NULL,
    PRIMARY KEY (`emp_id`)
 ) ENGINE=InnoDB;
 
@@ -40,9 +40,11 @@ CREATE TABLE IF NOT EXISTS `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`emp_id`, `emp_fname`, `emp_lname`, `emp_username`, `emp_password`, `isBranchHead`) VALUES
-(101, 'Admin', 'Admin', 'admin', 'Admin123!', 1),
-(102, 'Employee', 'Cashier', 'employee', 'Employee123!', 0);
+INSERT INTO `employee` (`emp_id`, `emp_fname`, `emp_lname`, `emp_username`, `emp_password`, `app_role`) VALUES
+(0, 'Admin', 'Admin', 'admin', 'Admin123!', 1),
+(1, 'Employee', 'Cashier 1', 'cashier1', 'Cashier123!', 2),
+(2, 'Employee', 'Cashier 2', 'cashier2', 'Cashier987!', 3),
+(3, 'Human', 'Resource', 'humrec', 'Humrec123!', 4);
 
 -- --------------------------------------------------------
 

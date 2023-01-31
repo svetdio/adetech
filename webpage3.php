@@ -2,7 +2,13 @@
 
 session_start();
 if (isset($_SESSION['login_details'])) {
-  $isBranchHead = $_SESSION['login_details']['isBranchHead'];
+  $app_role = $_SESSION['login_details']['app_role'];
+  if ($app_role == 2 || $app_role == 4) {
+    echo "<script type='text/javascript'>
+        alert('You are not supposed to be here. Redirecting..')
+        window.location = 'home.php';
+    </script>";
+  }
 } else {
   echo "<script type='text/javascript'> 
   localStorage.removeItem('adetech_user');
@@ -50,33 +56,42 @@ require_once "config.php";
         </a>
         <ul class="flex flex-col space-y-2 mt-12">
           <!--webpage 1-->
-          <li>
-            <a href="bundle1.php" class="flex items-center">
-              <span class="flex items-center justify-center text-cyan-100 hover:bg-cyan-400 h-12 w-12 rounded-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
-                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-                </svg>
-              </span>
-            </a>
-          </li>
+          <?php
+          if ($app_role == 1 || $app_role == 2) {
+          ?>
+            <li>
+              <a href="bundle1.php" class="flex items-center">
+                <span class="flex items-center justify-center text-cyan-100 hover:bg-cyan-400 h-12 w-12 rounded-2xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          <?php } ?>
           <!--webpage 3-->
-          <li>
-            <a href="webpage3.php" class="flex items-center">
-              <span class="flex items-center justify-center h-12 w-12 rounded-2xl" x-bind:class="{
+          <?php
+          if ($app_role == 1 || $app_role == 3) {
+          ?>
+            <li>
+              <a href="webpage3.php" class="flex items-center">
+                <span class="flex items-center justify-center h-12 w-12 rounded-2xl" x-bind:class="{
                   'hover:bg-cyan-400 text-cyan-100': activeMenu !== 'pos',
                   'bg-cyan-300 shadow-lg text-white': activeMenu === 'pos',
                 }">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </span>
-            </a>
-          </li>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          <?php } ?>
+
+          <!--webpage 2-->
           <?php
-          if ($isBranchHead == 1) {
+          if ($app_role == 1 || $app_role == 4) {
           ?>
-            <!--webpage 2-->
             <li>
               <a href="webpage2_new.php" class="flex items-center">
                 <span class="flex items-center justify-center text-cyan-100 hover:bg-cyan-400 h-12 w-12 rounded-2xl">
@@ -98,6 +113,10 @@ require_once "config.php";
                 </span>
               </a>
             </li>
+          <?php } ?>
+          <?php
+          if ($app_role == 1) {
+          ?>
             <!-- sales report -->
             <li>
               <a href="sales_report.php" class="flex items-center">

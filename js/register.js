@@ -27,6 +27,7 @@ $(function () {
             let uname = $('input#uname').val();
             let pass = $('input#pass').val();
             let pass2 = $('input#pass2').val();
+            let acct_type = $('select#acct_type').val();
             let hasError = false;
 
             if (fname == "") {
@@ -43,6 +44,11 @@ $(function () {
                 $('span#uname').html('Username is required.');
             } else {
                 $('span#uname').html("");
+            }
+            if (acct_type == "0") {
+                $('span#acct_type').html('Account Type is required.');
+            } else {
+                $('span#acct_type').html("");
             }
             let password_validation = validatePasswords(pass)
             if (!password_validation.success) {
@@ -65,7 +71,7 @@ $(function () {
             });
 
             if (!hasError) {
-                $.post('api/register.php', { fname, lname, uname, pass }, function (res) {
+                $.post('api/register.php', { fname, lname, uname, pass, acct_type }, function (res) {
                     let data = JSON.parse(res)
                     if (typeof data.error === "undefined") {
                         alert('Accounted created successfully! You may now log-in.');

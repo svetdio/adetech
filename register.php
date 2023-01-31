@@ -37,6 +37,17 @@
             </div>
             <br>
             <div class="input-control">
+                <label for="acct_type" class="fonty"><b>Account Type</b></label>
+                <span id="acct_type" class="errormsg"></span>
+                <select id="acct_type" class="fonty">
+                    <option value="0">--- Please select account type ---</option>
+                    <option value="2">Cashier 1</option>
+                    <option value="3">Cashier 2</option>
+                    <option value="4">Human Resource</option>
+                </select>
+            </div>
+            <br>
+            <div class="input-control">
                 <label for="username" class="fonty"><b>Username</b></label>
                 <span id="uname" class="errormsg"></span>
                 <input type="text" class="fonty" id="uname" placeholder="Create a username">
@@ -53,6 +64,8 @@
                 <span id="pass2" class="errormsg"></span>
                 <input type="password" class="fonty" id="pass2" placeholder="Re-type your password">
             </div>
+            <br>
+
             <br>
             <label for="checkbox" style="padding: 2%;">Show Password</label>
             <input class="cb" type="checkbox">

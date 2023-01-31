@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (isset($_SESSION['login_details'])) {
-	$isBranchHead = $_SESSION['login_details']['isBranchHead'];
-	if ($isBranchHead == 0) {
+	$app_role = $_SESSION['login_details']['app_role'];
+	if ($app_role == 0) {
 		echo "<script type='text/javascript'>
             alert('You are not supposed to be here. Redirecting..')
             window.location = 'bundle1.php';

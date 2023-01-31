@@ -6,8 +6,10 @@ $db = new mysqli($database_host, $database_user, $database_password, $database_s
 $emp_id_filter = "";
 if (isset($_GET['emp_id'])) {
     $empID = $_GET['emp_id'];
-    if($empID !== "" && $empID !== "none") {
+    if ($empID !== "" && $empID !== "none") {
         $emp_id_filter = "AND id = $empID";
+    } else {
+        $emp_id_filter = "AND id = ''";
     }
 }
 

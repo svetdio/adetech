@@ -1,11 +1,11 @@
 <?php
 session_start();
 if (isset($_SESSION['login_details'])) {
-    $isBranchHead = $_SESSION['login_details']['isBranchHead'];
-    if ($isBranchHead == 0) {
+    $app_role = $_SESSION['login_details']['app_role'];
+    if ($app_role <> 1) {
         echo "<script type='text/javascript'>
             alert('You are not supposed to be here. Redirecting..')
-            window.location = 'bundle1.php';
+            window.location = 'home.php';
         </script>";
     }
 } else {
@@ -23,7 +23,7 @@ require_once "config.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Items | AllShirt Commercial Outlet</title>
+    <title>Sales Report | AllShirt Commercial Outlet</title>
     <link href="css/fontawesome.min.css" rel="stylesheet">
     <link href="css/bulma.css" rel="stylesheet">
     <link href="css/tailwind.min.css" rel="stylesheet">
@@ -71,8 +71,8 @@ require_once "config.php";
                             </span>
                         </a>
                     </li>
-                     <!--webpage 3-->
-                     <li>
+                    <!--webpage 3-->
+                    <li>
                         <a href="webpage3.php" class="flex items-center">
                             <span class="flex items-center justify-center text-cyan-100 hover:bg-cyan-400 h-12 w-12 rounded-2xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
