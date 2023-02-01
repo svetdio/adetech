@@ -43,14 +43,14 @@ require_once "config.php";
   }
 
   .btn-square-md {
-    width: 300px !important;
+    width: 220px !important;
     max-width: 100% !important;
     max-height: 100% !important;
-    height: 300px !important;
+    height: 220px !important;
     color: black;
     text-align: center;
     padding: 0px;
-    font-size: 50px;
+    font-size: 2.5em;
     font-weight: bold;
     background-color: cyan;
     border-radius: 12px;
@@ -156,6 +156,17 @@ require_once "config.php";
       Employee List
     </button>
   </a>
+  <?php
+  if ($app_role == 1) {
+  ?>
+    <a href="users.php" class="place-items-center">
+      <button type="button" class="btn btn-primary btn-square-md">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        <br />
+        User List
+      </button>
+    </a>
+  <?php } ?>
 </body>
 
 </html>

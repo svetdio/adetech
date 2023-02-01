@@ -49,6 +49,7 @@ function initApp() {
     },
     addToCart(product) {
       const index = this.findCartIndex(product);
+      const remaining_stock = parseInt(product.qty);
       if (index === -1) {
         this.cart.push({
           productId: product.id,
@@ -63,7 +64,12 @@ function initApp() {
           remaining_stock: product.qty,
         });
       } else {
-        this.cart[index].qty += 1;
+        const afterAdd = this.cart[index].qty + 1;
+        if (afterAdd <= remaining_stock) {
+          this.cart[index].qty = afterAdd;
+        } else if (afterAdd > remaining_stock) {
+          this.cart[index].qty = remaining_stock;
+        }
       }
       this.beep();
       this.updateChange();

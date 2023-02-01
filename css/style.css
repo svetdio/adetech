@@ -356,3 +356,10 @@ table td {
     height: 20%;
     border: 2px solid silver;
 }
+
+span.show-hide-pword {
+    pointer-events: all !important;
+    cursor: pointer !important;
+    color: black !important;
+    border: 1px solid silver;
+}

@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['login_details'])) {
     $app_role = $_SESSION['login_details']['app_role'];
-    if ($app_role == 2 || $app_role == 3) {
+    if ($app_role <> 1) {
         echo "<script type='text/javascript'>
             alert('You are not supposed to be here. Redirecting..')
             window.location = 'home.php';
@@ -23,7 +23,7 @@ require_once "config.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee List | AllShirt Commercial Outlet</title>
+    <title>Users List | AllShirt Commercial Outlet</title>
     <link href="css/fontawesome.min.css" rel="stylesheet">
     <link href="css/bulma.css" rel="stylesheet">
     <link href="css/tailwind.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@ require_once "config.php";
     <script src='js/datatables.js'> </script>
     <script src="js/alpine.min.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/emp_list.js"></script>
+    <script src="js/user_list.js"></script>
     <script defer src='js/modal.js'> </script>
 </head>
 
@@ -99,10 +99,7 @@ require_once "config.php";
                         <!-- employee list -->
                         <li>
                             <a href="employee_listview.php" class="flex items-center">
-                                <span class="flex items-center justify-center h-12 w-12 rounded-2xl" x-bind:class="{
-                  'hover:bg-cyan-400 text-cyan-100': activeMenu !== 'pos',
-                  'bg-cyan-300 shadow-lg text-white': activeMenu === 'pos',
-                }">
+                                <span class="flex items-center justify-center text-cyan-100 hover:bg-cyan-400 h-12 w-12 rounded-2xl">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6 bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
@@ -137,9 +134,12 @@ require_once "config.php";
                         <!-- users -->
                         <li>
                             <a href="users.php" class="flex items-center">
-                                <span class="flex items-center justify-center text-cyan-100 hover:bg-cyan-400 h-12 w-12 rounded-2xl">
+                                <span class="flex items-center justify-center h-12 w-12 rounded-2xl" x-bind:class="{
+                  'hover:bg-cyan-400 text-cyan-100': activeMenu !== 'pos',
+                  'bg-cyan-300 shadow-lg text-white': activeMenu === 'pos',
+                }">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6 bi bi-pencil-square" viewBox="0 0 16 16">
-                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                                     </svg>
                                 </span>
                             </a>
@@ -166,12 +166,12 @@ require_once "config.php";
             <!-- store menu -->
             <div class="w-full mt-4">
                 <div class="flex pb-4 px-4 text-xl font-extrabold">
-                    <h1>EMPLOYEE LIST</h1>
+                    <h1>USERS LIST</h1>
                 </div>
                 <div class="flex flex-row-reverse pb-4 px-4 text-xl font-extrabold float-none">
                     <button class="text-white rounded-2xl text-lg w-60 py-3 inset-y-0 right-0 focus:outline-none bg-cyan-500 hover:bg-cyan-600 js-modal-trigger" data-target="add_emp_form">
                         <i class="fa fa-plus" aria-hidden="true"></i>
-                        New Employee
+                        New User
                     </button>
                 </div>
                 <div class="h-full overflow-y-auto px-2">
@@ -179,21 +179,15 @@ require_once "config.php";
                         <thead>
                             <tr>
                                 <th>Actions</th>
-                                <th>Employee ID</th>
+                                <th>User ID</th>
                                 <th>Employee Name</th>
-                                <th>Gender</th>
-                                <th>Date of Birth</th>
-                                <th>Nationality</th>
-                                <th>Civil Status</th>
-                                <th>Department</th>
-                                <th>Designation</th>
-                                <th>Employee Status</th>
-                                <th>Qualified Dependent Status</th>
+                                <th>Username</th>
+                                <th>Role</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $data = file_get_contents($host_url . '/api/get_emp.php');
+                            $data = file_get_contents($host_url . '/api/get_user.php');
                             $data = json_decode($data, true);
                             foreach ($data as $k => $v) {
                             ?>
@@ -201,32 +195,21 @@ require_once "config.php";
                                     <td>
                                         <div class="field has-addons">
                                             <p class="control">
-                                                <button class="button is-small btn-edit-item js-modal-trigger" data-target="upd_emp_form" data-emp_id="<?php echo $v['id'] ?>" title="Edit Information">
+                                                <button class="button is-small btn-edit-item js-modal-trigger" data-target="upd_emp_form" data-emp_id="<?php echo $v['emp_id'] ?>" title="Edit Information">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </button>
                                             </p>
                                             <p class="control">
-                                                <a href="webpage2_new.php?emp_id=<?php echo $v['id'] ?>" class="button is-small btn-open-payroll" data-emp_id="<?php echo $v['id'] ?>" title="Open Payroll">
-                                                    <span> <i class="fa fa-credit-card" aria-hidden="true"></i> </span>
-                                                </a>
-                                            </p>
-                                            <p class="control">
-                                                <button class="button is-small btn-delete-item" data-emp_id="<?php echo $v['id'] ?>" title="Delete Employee">
+                                                <button class="button is-small btn-delete-item" data-emp_id="<?php echo $v['emp_id'] ?>" title="Delete User">
                                                     <span> <i class="fa fa-trash" aria-hidden="true" style="color: red"></i> </span>
                                                 </button>
                                             </p>
                                         </div>
                                     </td>
-                                    <td><?php echo $v['id'] ?></td>
-                                    <td><?php echo $v['emp_name'] ?></td>
-                                    <td><?php echo ucwords($v['gender']) ?></td>
-                                    <td><?php echo $v['bday'] ?></td>
-                                    <td><?php echo ucwords($v['natl']); ?></td>
-                                    <td><?php echo ucwords($v['c_status']); ?></td>
-                                    <td><?php echo ucwords($v['dept']); ?></td>
-                                    <td><?php echo ucwords($v['desg']); ?></td>
-                                    <td><?php echo ucwords($v['emp_status']); ?></td>
-                                    <td><?php echo ucwords($v['tax_status']); ?></td>
+                                    <td><?php echo $v['emp_id'] ?></td>
+                                    <td><?php echo $v['emp_lname'] . ', ' . $v['emp_fname'] ?></td>
+                                    <td><?php echo $v['emp_username'] ?></td>
+                                    <td><?php echo $v['app_role'] ?></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -241,123 +224,60 @@ require_once "config.php";
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">New Employee</p>
+                    <p class="modal-card-title">New User</p>
                     <button class="delete" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="field">
-                        <label for="emp_name" class="label">Employee Name</label>
-                        <span id="emp_name" class="has-text-danger errormsg"></span>
-                        <input type="text" class="input" id="emp_name" placeholder="Employee Name">
+                        <label for="emp_fname" class="label">First Name</label>
+                        <span id="emp_fname" class="has-text-danger errormsg"></span>
+                        <input type="text" class="input" id="emp_fname" placeholder="First Name">
                     </div>
                     <div class="field">
-                        <label for="gender" class="label">Gender</label>
-                        <div id="gender" class="has-text-danger errormsg"></div>
+                        <label for="emp_lname" class="label">First Name</label>
+                        <span id="emp_lname" class="has-text-danger errormsg"></span>
+                        <input type="text" class="input" id="emp_lname" placeholder="Last Name">
+                    </div>
+                    <div class="field">
+                        <label for="app_role" class="label">App Role</label>
+                        <div id="app_role" class="has-text-danger errormsg"></div>
                         <div class="select">
-                            <select id="gender">
-                                <option value="0">--- Please select a gender ---</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                            <select id="app_role">
+                                <option value="0">--- Please select account type ---</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Cashier 1</option>
+                                <option value="3">Cashier 2</option>
+                                <option value="4">Human Resource</option>
                             </select>
                         </div>
                     </div>
                     <div class="field">
-                        <label for="bday" class="label">Date of Birth</label>
-                        <span id="bday" class="has-text-danger errormsg"></span>
-                        <input class="input" type="date" placeholder="Date of Birth" id="bday">
-                    </div>
-                    <div class="field">
-                        <label for="natl" class="label">Nationality</label>
-                        <div id="natl" class="has-text-danger errormsg"></div>
-                        <div class="select">
-                            <select id="natl">
-                                <option value="0">--- Please select a nationality ---</option>
-                                <?php
-                                $countries = file_get_contents($host_url . '/api/countries.json');
-                                $countries = json_decode($countries, true);
-                                foreach ($countries as $country) {
-                                ?>
-                                    <option value="<?php echo $country['nationality']; ?>"><?php echo $country['nationality']; ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="c_status" class="label">Civil Status</label>
-                        <div id="c_status" class="has-text-danger errormsg"></div>
-                        <div class="select">
-                            <select id="c_status">
-                                <option value="0">--- Please select civil status ---</option>
-                                <option value="single">Single</option>
-                                <option value="married">Married</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Department</label>
-                        <span id="dept" class="has-text-danger errormsg"></span>
-                        <input type="text" class="input" id="dept" placeholder="Department">
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Designation</label>
-                        <span id="desg" class="has-text-danger errormsg"></span>
-                        <input type="text" class="input" id="desg" placeholder="Designation">
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Employee Status</label>
-                        <span id="emp_status" class="has-text-danger errormsg"></span>
-                        <input type="text" class="input" id="emp_status" placeholder="Employee Status">
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Qualified Dependent Status</label>
-                        <span id="tax_status" class="has-text-danger errormsg"></span>
-                        <div class="select">
-                            <select id="tax_status">
-                                <option value="0">--- Please select tax status ---</option>
-                                <option value="Z">No Exemption</option>
-                                <optgroup label="For Single">
-                                    <option value="S1">Single - 1 Dependent</option>
-                                    <option value="S2">Single - 2 Dependents</option>
-                                    <option value="S3">Single - 3 Dependents</option>
-                                    <option value="S4">Single - 4 Dependents</option>
-                                </optgroup>
-                                <optgroup label="For Married">
-                                    <option value="M1">Married - 1 Dependent</option>
-                                    <option value="M2">Married - 2 Dependents</option>
-                                    <option value="M3">Married - 3 Dependents</option>
-                                    <option value="M4">Married - 4 Dependents</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Employee Image</label>
-                        <span id="emp_image" class="has-text-danger errormsg"></span>
-                        <div id="file-js-example" class="file has-name is-primary">
-                            <label class="file-label">
-                                <input class="file-input" type="file" name="emp_image" id="emp_image" accept="image/*">
-                                <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fa fa-upload"></i>
-                                    </span>
-                                    <span class="file-label">
-                                        Choose a file…
-                                    </span>
-                                </span>
-                                <span class="file-name">
-                                    No file uploaded
-                                </span>
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Image Preview</label>
-                        <figure class="image is-128x128">
-                            <img id="add-img-viewer" src="img/default-img.png" alt="Product Image" />
-                        </figure>
+                        <label for="emp_username" class="label">Username</label>
+                        <span id="emp_username" class="has-text-danger errormsg"></span>
+                        <input type="text" class="input" id="emp_username" placeholder="Username">
                     </div>
 
+                    <div class="field">
+                        <label for="emp_password" class="label">Enter Password</label>
+                        <span id="emp_password" class="has-text-danger errormsg"></span>
+                        <div class="control has-icons-right">
+                            <input type="password" class="input" id="emp_password" placeholder="Create a password">
+                            <span class="icon show-hide-pword is-small is-right">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="password2" class="label">Confirm Password</label>
+                        <span id="password2" class="has-text-danger errormsg"></span>
+                        <div class="control has-icons-right">
+                            <input type="password" class="input" id="password2" placeholder="Re-type your password">
+                            <span class="icon show-hide-pword is-small is-right">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-success" id='add_emp'>Save</button>
@@ -370,123 +290,60 @@ require_once "config.php";
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Update Employee Details</p>
+                    <p class="modal-card-title">Edit User</p>
                     <button class="delete" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="field">
-                        <label for="emp_name" class="label">Employee Name</label>
-                        <span id="emp_name" class="has-text-danger errormsg"></span>
-                        <input type="text" class="input" id="emp_name" placeholder="Employee Name">
+                        <label for="emp_fname" class="label">First Name</label>
+                        <span id="emp_fname" class="has-text-danger errormsg"></span>
+                        <input type="text" class="input" id="emp_fname" placeholder="First Name">
                     </div>
                     <div class="field">
-                        <label for="gender" class="label">Gender</label>
-                        <div id="gender" class="has-text-danger errormsg"></div>
+                        <label for="emp_lname" class="label">First Name</label>
+                        <span id="emp_lname" class="has-text-danger errormsg"></span>
+                        <input type="text" class="input" id="emp_lname" placeholder="Last Name">
+                    </div>
+                    <div class="field">
+                        <label for="app_role" class="label">App Role</label>
+                        <div id="app_role" class="has-text-danger errormsg"></div>
                         <div class="select">
-                            <select id="gender">
-                                <option value="0">--- Please select a gender ---</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                            <select id="app_role">
+                                <option value="0">--- Please select account type ---</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Cashier 1</option>
+                                <option value="3">Cashier 2</option>
+                                <option value="4">Human Resource</option>
                             </select>
                         </div>
                     </div>
                     <div class="field">
-                        <label for="bday" class="label">Date of Birth</label>
-                        <span id="bday" class="has-text-danger errormsg"></span>
-                        <input class="input" type="date" placeholder="Date of Birth" id="bday">
-                    </div>
-                    <div class="field">
-                        <label for="natl" class="label">Nationality</label>
-                        <div id="natl" class="has-text-danger errormsg"></div>
-                        <div class="select">
-                            <select id="natl">
-                                <option value="0">--- Please select a nationality ---</option>
-                                <?php
-                                $countries = file_get_contents($host_url . '/api/countries.json');
-                                $countries = json_decode($countries, true);
-                                foreach ($countries as $country) {
-                                ?>
-                                    <option value="<?php echo $country['nationality']; ?>"><?php echo $country['nationality']; ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="c_status" class="label">Civil Status</label>
-                        <div id="c_status" class="has-text-danger errormsg"></div>
-                        <div class="select">
-                            <select id="c_status">
-                                <option value="0">--- Please select civil status ---</option>
-                                <option value="single">Single</option>
-                                <option value="married">Married</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Department</label>
-                        <span id="dept" class="has-text-danger errormsg"></span>
-                        <input type="text" class="input" id="dept" placeholder="Department">
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Designation</label>
-                        <span id="desg" class="has-text-danger errormsg"></span>
-                        <input type="text" class="input" id="desg" placeholder="Designation">
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Employee Status</label>
-                        <span id="emp_status" class="has-text-danger errormsg"></span>
-                        <input type="text" class="input" id="emp_status" placeholder="Employee Status">
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Qualified Dependent Status</label>
-                        <span id="tax_status" class="has-text-danger errormsg"></span>
-                        <div class="select">
-                            <select id="tax_status">
-                                <option value="0">--- Please select tax status ---</option>
-                                <option value="Z">No Exemption</option>
-                                <optgroup label="For Single">
-                                    <option value="S1">Single - 1 Dependent</option>
-                                    <option value="S2">Single - 2 Dependents</option>
-                                    <option value="S3">Single - 3 Dependents</option>
-                                    <option value="S4">Single - 4 Dependents</option>
-                                </optgroup>
-                                <optgroup label="For Married">
-                                    <option value="M1">Married - 1 Dependent</option>
-                                    <option value="M2">Married - 2 Dependents</option>
-                                    <option value="M3">Married - 3 Dependents</option>
-                                    <option value="M4">Married - 4 Dependents</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Employee Image</label>
-                        <span id="emp_image" class="has-text-danger errormsg"></span>
-                        <div id="file-js-example" class="file has-name is-primary">
-                            <label class="file-label">
-                                <input class="file-input" type="file" name="emp_image" id="emp_image" accept="image/*">
-                                <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fa fa-upload"></i>
-                                    </span>
-                                    <span class="file-label">
-                                        Choose a file…
-                                    </span>
-                                </span>
-                                <span class="file-name" id="">
-                                    No file uploaded
-                                </span>
-                            </label>
-
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Image Preview</label>
-                        <figure class="image is-128x128">
-                            <img id="upd-img-viewer" src="img/default-img.png" alt="Product Image" />
-                        </figure>
+                        <label for="emp_username" class="label">Username</label>
+                        <span id="emp_username" class="has-text-danger errormsg"></span>
+                        <input type="text" class="input" id="emp_username" placeholder="Username">
                     </div>
 
+                    <div class="field">
+                        <label for="emp_password" class="label">Enter Password</label>
+                        <span id="emp_password" class="has-text-danger errormsg"></span>
+                        <div class="control has-icons-right">
+                            <input type="password" class="input" id="emp_password" placeholder="Create a password">
+                            <span class="icon show-hide-pword is-small is-right">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="password2" class="label">Confirm Password</label>
+                        <span id="password2" class="has-text-danger errormsg"></span>
+                        <div class="control has-icons-right">
+                            <input type="password" class="input" id="password2" placeholder="Re-type your password">
+                            <span class="icon show-hide-pword is-small is-right">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
                 </section>
                 <footer class="modal-card-foot">
                     <button class="button is-success" id='upd_emp'>Save</button>
@@ -494,18 +351,7 @@ require_once "config.php";
                 </footer>
             </div>
         </div>
-        <!-- end of store menu -->
 
-        <!-- right sidebar -->
-
-        <!-- cart items -->
-
-        <!-- end of cart items -->
-
-        <!-- payment info -->
-
-
-        <!-- modal receipt -->
     </div>
     <!-- end of noprint-area -->
 
