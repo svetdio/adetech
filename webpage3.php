@@ -115,7 +115,7 @@ require_once "config.php";
             </li>
           <?php } ?>
           <?php
-          if ($app_role == 1) {
+          if ($app_role == 1 || $app_role == 2 || $app_role == 3) {
           ?>
             <!-- sales report -->
             <li>
@@ -127,6 +127,10 @@ require_once "config.php";
                 </span>
               </a>
             </li>
+          <?php } ?>
+          <?php
+          if ($app_role == 1) {
+          ?>
             <!-- products -->
             <li>
               <a href="products.php" class="flex items-center">

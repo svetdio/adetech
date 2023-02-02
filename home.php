@@ -159,6 +159,13 @@ require_once "config.php";
   <?php
   if ($app_role == 1) {
   ?>
+    <a href="products.php" class="place-items-center">
+      <button type="button" class="btn btn-primary btn-square-md">
+        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+        <br />
+        Items list
+      </button>
+    </a>
     <a href="users.php" class="place-items-center">
       <button type="button" class="btn btn-primary btn-square-md">
         <i class="fa fa-user" aria-hidden="true"></i>
