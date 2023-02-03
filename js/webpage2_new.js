@@ -110,10 +110,8 @@ const savePayroll = function () {
 $(function () {
     $('select#emp_id').on('change', function () {
         let emp_id = $(this).val();
-        debugger;
         $.get('api/get_emp.php', { emp_id }, function (r) {
             let emps = JSON.parse(r);
-            debugger;
             if (emps.length > 0) {
                 let data = emps[0];
                 $('input#emp_name').val(data.emp_name)

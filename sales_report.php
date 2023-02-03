@@ -183,12 +183,12 @@ require_once "config.php";
                 <div id="tabs">
                     <ul>
                         <?php
-                        if ($app_role == 2) {
+                        if ($app_role == 1 || $app_role == 3) {
                         ?>
                             <li><a href="#pos">Single POS Sales</a></li>
                         <?php } ?>
                         <?php
-                        if ($app_role == 3) {
+                        if ($app_role == 1 || $app_role == 2) {
                         ?>
                             <li><a href="#bundle1">Bundle 1 Sales</a></li>
                             <li><a href="#bundle2">Bundle 2 Sales</a></li>
@@ -196,7 +196,7 @@ require_once "config.php";
                         <?php } ?>
                     </ul>
                     <?php
-                    if ($app_role == 2) {
+                    if ($app_role == 1 || $app_role == 3) {
                     ?>
                         <div id="pos">
                             <div class="field is-horizontal">
@@ -238,7 +238,7 @@ require_once "config.php";
                         </div>
                     <?php } ?>
                     <?php
-                    if ($app_role == 3) {
+                    if ($app_role == 1 || $app_role == 2) {
                     ?>
                         <div id="bundle1">
                             <div class="field is-horizontal">
